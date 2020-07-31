@@ -2,7 +2,7 @@
 // main.cpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Desenvolvedor: Gelson Rodrigues
+// Developer: Gelson Rodrigues
 // geoldery@gmail.com
 //
 // Create a passive socket to 
