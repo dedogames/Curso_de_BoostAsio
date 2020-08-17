@@ -23,6 +23,6 @@ Nessa segunda parte foi construida duas aplicações:
 
  A finalidade desta aplicação é demonstra o uso básico de um cliente recebendo dados de um Servidor, esta com divisões para separar aplicação da comunicação.
  
-## Link para o youtube: https://youtu.be/1tIpucdJ76E
+## Link para o youtube:
  
 [![Enviando dados pela rede(Server/Client)](http://img.youtube.com/vi/1ZFpThZosv8/0.jpg)](https://www.youtube.com/watch?v=1tIpucdJ76E&feature=youtu.be&hd=1 "")
