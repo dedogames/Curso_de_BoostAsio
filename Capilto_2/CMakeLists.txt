@@ -142,3 +142,4 @@ endif(CMAKE_BUILD_TYPE STREQUAL "Debug")
 #-- .exe --#
 add_subdirectory(server_proj) 
 add_subdirectory(client_proj)  
+add_subdirectory(skills_proj) 

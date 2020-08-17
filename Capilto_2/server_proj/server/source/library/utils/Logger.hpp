@@ -15,7 +15,7 @@
 #include<string>
 namespace utils
 {
-	enum elog_type
+	enum e_log_type
 	{
 		message,
 		debug,
@@ -32,7 +32,7 @@ namespace utils
 		* @logType - type o message
 		* return void
 		*/
-		static void trace(const std::string& msg, elog_type logType)
+		static void trace(const std::string& msg, e_log_type logType)
 		{
 			std::string l_full_msg("");
 			switch (logType)

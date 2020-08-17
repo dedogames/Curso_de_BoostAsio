@@ -48,7 +48,7 @@ namespace bit_server
 		*/
 		void process_trade(std::string &l_cli)
 		{
-			utils::Logger::trace("Processing request", utils::elog_type::message);
+			utils::Logger::trace("Processing request", utils::e_log_type::message);
 			m_client = l_cli;
 		}
 
@@ -77,7 +77,7 @@ namespace bit_server
 
 			// prepare message to return
 			std::string l_parsed_message = l_trade_ptr->to_string() + "\n";			 
-			utils::Logger::trace("[Response to [" + m_client + "] " + l_parsed_message, utils::elog_type::message);
+			utils::Logger::trace("[Response to [" + m_client + "] " + l_parsed_message, utils::e_log_type::message);
 
 			return l_parsed_message;
 		}
@@ -106,7 +106,7 @@ namespace bit_server
 		{
 			std::thread l_thread(([this, cli_socket]() 
 			{
-				utils::Logger::trace("Handle Connection", utils::elog_type::message);
+				utils::Logger::trace("Handle Connection", utils::e_log_type::message);
 				handler_connection(cli_socket);
 			}));
 
@@ -124,7 +124,7 @@ namespace bit_server
 		void handler_connection(boost::shared_ptr<ip::tcp::socket> cli_socket)
 		{
 			try {
-				utils::Logger::trace("Read request until ", utils::elog_type::message);
+				utils::Logger::trace("Read request until ", utils::e_log_type::message);
 				streambuf request;
 				// Read what client send until found '\n'
 				read_until(*cli_socket.get(), request, '\n');
@@ -147,7 +147,7 @@ namespace bit_server
 				//ops! something wrong, review your code
 				std::cout << e.what() << std::endl;
 				std::string l_err = e.what();
-				utils::Logger::trace("[Service::handler_connection] - " + l_err, utils::elog_type::error);
+				utils::Logger::trace("[Service::handler_connection] - " + l_err, utils::e_log_type::error);
 			}
 
 		 
@@ -167,7 +167,7 @@ namespace bit_server
 		m_ios(ios),
 		m_acceptor(m_ios,ip::tcp::endpoint(ip::address_v4::any(), port))		
 		{
-			utils::Logger::trace("Listen clients on port "+std::to_string(port), utils::elog_type::message);	
+			utils::Logger::trace("Listen clients on port "+std::to_string(port), utils::e_log_type::message);	
 			
 			m_acceptor.listen();
 		}
@@ -179,12 +179,12 @@ namespace bit_server
 		void acceptor()
 		{
 			
-			utils::Logger::trace("Wait for a new client connection", utils::elog_type::message);
+			utils::Logger::trace("Wait for a new client connection", utils::e_log_type::message);
             /* to comunicate with clients, aticve socket was created*/
 			boost::shared_ptr<ip::tcp::socket> l_socket = boost::make_shared<ip::tcp::socket>(m_ios);
 			m_acceptor.accept(*l_socket.get());
 			
-			utils::Logger::trace("Connection accepted", utils::elog_type::message);
+			utils::Logger::trace("Connection accepted", utils::e_log_type::message);
 			
 			ServicePtr l_service_ptr = boost::make_shared< Service>();
 			l_service_ptr->start_handler_connection(l_socket);
@@ -211,7 +211,7 @@ namespace bit_server
 		/* @constructor
 		*  @param port - protocol port where Server listen clients 
 		*/
-		Server(u_int port):m_port(port), m_stop(false), full_stop(false)
+		Server(u_int port):m_port(port), m_stop(false) 
 		{
 			
 		}
@@ -225,7 +225,7 @@ namespace bit_server
 		{
 			m_thread.reset(new std::thread(
 											[this](){
-														utils::Logger::trace("Server started", utils::elog_type::message);
+														utils::Logger::trace("Server started", utils::e_log_type::message);
 														run();
 													}
 											));
@@ -238,7 +238,7 @@ namespace bit_server
 		{	
 			m_stop.store(true);		 
 			m_thread->join();
-			utils::Logger::trace("Server stoped", utils::elog_type::message);
+			utils::Logger::trace("Server stoped", utils::e_log_type::message);
 		}
 	private:
 		/*
@@ -247,20 +247,16 @@ namespace bit_server
 		void run()
 		{
 			AcceptorPtr l_accept_ptr = boost::make_shared<Acceptor>(m_ios,m_port);
-			utils::Logger::trace("Server running...", utils::elog_type::message);
+			utils::Logger::trace("Server running...", utils::e_log_type::message);
 			while(!m_stop.load())
 			{
 				l_accept_ptr->acceptor();
-		    }
-			 
-	
-			
+		    }		
 		}
 		//manager I/O network
 		io_service m_ios;
 		//Objects of atomic types are the only C++ objects that are free from data races
-		std::atomic<bool> m_stop;
-		std::atomic<bool> full_stop;
+		std::atomic<bool> m_stop; 
 		// port where server wait for clients
 		u_int m_port;
 		//start server in other thread

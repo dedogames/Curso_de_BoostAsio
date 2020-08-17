@@ -23,7 +23,7 @@ class Application
 	void start(u_int port)
 	{
 		
-		utils::Logger::trace("Initiating server...", utils::elog_type::message);
+		utils::Logger::trace("Initiating server...", utils::e_log_type::message);
 		m_server = boost::make_shared< bit_server::Server>(port);
 		run();
 	}
@@ -31,7 +31,7 @@ class Application
 	{
 		try
 		{ 
-			utils::Logger::trace("Start server....", utils::elog_type::message);
+			utils::Logger::trace("Start server....", utils::e_log_type::message);
 			m_server->start(); 
 
 			//run server forever
@@ -42,7 +42,7 @@ class Application
 		catch (const boost::system::system_error& e)
 		{
 			std::string l_err = e.what();
-			utils::Logger::trace("[Application::run] - " + l_err, utils::elog_type::error);
+			utils::Logger::trace("[Application::run] - " + l_err, utils::e_log_type::error);
 		}
 	}
  

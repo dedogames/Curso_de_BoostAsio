@@ -5,35 +5,27 @@
 // Developer: Gelson Rodrigues
 // geoldery@gmail.com
 //
-// start application  
-//
-//Conventions syntax for C++
-// pointers  - my_foo_ptr
-// class     - My_Foo_Class
-// enum      - emy_foo_enum
-// namespace - my_foot_namespace
-// interface - IMy_Foo_Interface
+// start application   
 
 #include "Application.hpp"
  
-/*
-	From here don't matter if I use boost:: or Berkeley socket directly,
-	it's very important to abstract your solution like components
-*/
 int main(int argc, char** argv)
 {
-	
+	const unsigned int port_num(8596);
+	/*
+	uncomment this part to set port from terminal
 	if (argc < 2)
 	{
 		std::cerr <<
-			"Usage: server.exe <port>\n" <<
+			"Usage:   <port> <name>\n" <<
 			"Example:\n" <<
-			" server.exe 3584 \n";
-		//return EXIT_FAILURE;
+			"    server.exe 8544 gelson\n";
+		return EXIT_FAILURE;
 	}
-	Application l_app;
-	//u_int port_num = std::stoi(argv[1]); 
-	u_int port_num(3333);
+ 
+	port_num = std::stod(argv[1]);
+	*/
+	Application l_app;  
 	l_app.start(port_num);
  
 	return 0;
